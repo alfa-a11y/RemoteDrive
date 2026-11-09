@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remote Drive</title>
+<meta name="description" content="Drive a real machine from your browser. Demo version.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#home"><span class="dot"></span>Remote Drive</a>
+  <nav class="links" aria-label="Main">
+    <a href="#about">About Us</a>
+    <a href="#what">What Is This</a>
+    <a href="#news">News</a>
+  </nav>
+  <div class="auth" id="authNav"></div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section data-page="home">
+  <div class="hero wrap">
+    <div class="hero-text">
+      <h1>Drive a real machine from your browser</h1>
+      <p>Pick a machine, join the queue and take control. Camera, keyboard, gamepad and touch controls in one place.</p>
+      <div class="row">
+        <a class="btn primary" href="#register">Create account</a>
+        <a class="btn" href="#how">How it works</a>
+      </div>
+      <p class="note">Demo version: no real machine is connected yet.</p>
+    </div>
+    <div class="panel status">
+      <img src="rc-car.jpg" alt="RC car" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <svg style="display:none" viewBox="0 0 320 170" role="img" aria-label="Four-wheel robot illustration">
+        <rect x="0" y="0" width="320" height="170" fill="#0e1611"/>
+        <path d="M0 140H320" stroke="#24322a" stroke-width="2"/>
+        <rect x="70" y="80" width="180" height="40" rx="8" fill="#1d2b22" stroke="#3ddc84" stroke-width="2"/>
+        <rect x="100" y="64" width="90" height="16" rx="4" fill="#16221a" stroke="#3ddc84" stroke-width="2"/>
+        <rect x="205" y="56" width="26" height="24" rx="4" fill="#16221a" stroke="#3ddc84" stroke-width="2"/>
+        <circle cx="218" cy="68" r="6" fill="#3ddc84"/>
+        <circle cx="100" cy="128" r="20" fill="#0c120e" stroke="#8fa396" stroke-width="4"/>
+        <circle cx="220" cy="128" r="20" fill="#0c120e" stroke="#8fa396" stroke-width="4"/>
+        <circle cx="100" cy="128" r="6" fill="#8fa396"/>
+        <circle cx="220" cy="128" r="6" fill="#8fa396"/>
+      </svg>
+      <div class="status-body">
+        <div class="status-line"><span class="dot"></span><strong>RD-01 Rover</strong> is online</div>
+        <table class="hours">
+          <caption>Opening hours</caption>
+          <tr><td>Monday to Friday</td><td>09:00 – 18:00</td></tr>
+          <tr><td>Saturday</td><td>10:00 – 16:00</td></tr>
+          <tr><td>Sunday</td><td>Closed</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" id="how">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><h3>Create an account</h3><p>Sign up with a username and email. It takes under a minute.</p></li>
+      <li><h3>Choose a machine</h3><p>Open the dashboard and check which machines are online.</p></li>
+      <li><h3>Drive</h3><p>Use the arrow keys, WASD, a gamepad or the on-screen buttons. Each session is limited to 5 minutes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section data-page="about" class="wrap narrow">
+  <h1>About Us</h1>
+  <p>Remote Drive is a student project. The aim is to let anyone drive a small robot over the internet, safely and with a clear queue.</p>
+  <p>This first version is the website only. The next stage is connecting an ESP32, a camera and a four-wheel robot.</p>
+</section>
+
+<!-- WHAT -->
+<section data-page="what" class="wrap narrow">
+  <h1>What Is This</h1>
+  <p>You control a real machine from far away. You see through its camera and send driving commands with your keyboard, a gamepad or your phone.</p>
+  <h2>Right now</h2>
+  <p>The driving screen is a simulation. Nothing you press controls real hardware.</p>
+  <h2>Later</h2>
+  <p>A backend server will handle secure login, the queue, live video and the connection to the robot. Safety controls such as an emergency stop and an automatic timeout will be added first.</p>
+</section>
+
+<!-- NEWS -->
+<section data-page="news" class="wrap narrow">
+  <h1>News</h1>
+  <article class="item"><time datetime="2026-11-09">9 November 2026</time><h3>Website started</h3><p>The first demo of Remote Drive is online.</p></article>
+  <article class="item"><time datetime="2026-11-16">Planned</time><h3>Robot build</h3><p>Four-wheel chassis, ESP32 and camera.</p></article>
+</section>
+
+<!-- LOGIN -->
+<section data-page="login" class="wrap form-page">
+  <h1>Log in</h1>
+  <form id="loginForm" novalidate>
+    <label>Username or email<input name="uid" autocomplete="username" required></label>
+    <label>Password<input name="pw" type="password" autocomplete="current-password" required></label>
+    <p class="error" id="loginError" role="alert"></p>
+    <button class="btn primary" type="submit">Log in</button>
+  </form>
+  <p class="note">Demo only: your password is not saved or checked. Never use a real password here.</p>
+  <p>No account? <a href="#register">Create one</a></p>
+</section>
+
+<!-- REGISTER -->
+<section data-page="register" class="wrap form-page">
+  <h1>Create account</h1>
+  <form id="regForm" novalidate>
+    <label>Username<input name="user" autocomplete="username" required></label>
+    <label>Email<input name="email" type="email" autocomplete="email" required></label>
+    <label>Password<input name="pw" type="password" autocomplete="new-password" required></label>
+    <p class="error" id="regError" role="alert"></p>
+    <button class="btn primary" type="submit">Create account</button>
+  </form>
+  <p class="note">Demo only: accounts live in this browser. Your password is not saved. Never use a real password here.</p>
+  <p>Have an account? <a href="#login">Log in</a></p>
+</section>
+
+<!-- DASHBOARD -->
+<section data-page="dashboard" class="wrap">
+  <h1 id="welcome">Welcome</h1>
+  <h2>Machines</h2>
+  <div class="panel machine">
+    <div>
+      <div class="status-line"><span class="dot"></span><strong>RD-01 Rover</strong> is online</div>
+      <dl class="specs">
+        <dt>Type</dt><dd>Four-wheel robot</dd>
+        <dt>Controller</dt><dd>ESP32 (planned)</dd>
+        <dt>Camera</dt><dd>Front, 480p (planned)</dd>
+        <dt>Queue</dt><dd>0 waiting</dd>
+      </dl>
+    </div>
+    <a class="btn primary" href="#drive">Drive</a>
+  </div>
+  <div class="panel machine off">
+    <div>
+      <div class="status-line"><span class="dot off"></span><strong>RD-02 Crawler</strong> is offline</div>
+      <p class="note">Not built yet.</p>
+    </div>
+    <span class="btn disabled" aria-disabled="true">Unavailable</span>
+  </div>
+</section>
+
+<!-- DRIVE -->
+<section data-page="drive" class="wrap">
+  <div class="drive-head">
+    <h1>RD-01 Rover</h1>
+    <div class="timer" aria-live="off">Time left <strong id="timer">5:00</strong></div>
+  </div>
+  <p class="banner">Simulation. These controls do not move any real machine.</p>
+  <div class="drive-grid">
+    <div class="cam">
+      <canvas id="cam" width="640" height="400" aria-label="Simulated camera view"></canvas>
+      <div class="cam-tag">Camera preview (simulated)</div>
+    </div>
+    <div class="side">
+      <div class="panel">
+        <div class="queue" id="queue">You are driving. 0 people waiting.</div>
+        <div class="pad" aria-label="Driving controls">
+          <button class="k up" data-k="f" aria-label="Forward">▲</button>
+          <button class="k left" data-k="l" aria-label="Left">◀</button>
+          <button class="k down" data-k="b" aria-label="Backward">▼</button>
+          <button class="k right" data-k="r" aria-label="Right">▶</button>
+        </div>
+        <button class="btn stop" id="estop">Emergency stop</button>
+        <p class="note">Keys: arrows or WASD. Space = emergency stop.</p>
+        <button class="btn" id="restart" hidden>Start new session</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section data-page="privacy" class="wrap narrow">
+  <h1>Privacy and terms</h1>
+  <p>This demo stores a username and email in your own browser (localStorage). Nothing is sent to a server.</p>
+  <p>localStorage is not secure. Do not enter a real password.</p>
+  <p>Use this site at your own risk. The driving controls are a simulation.</p>
+</section>
+
+</main>
+
+<footer class="foot wrap">
+  <span>© 2026 Remote Drive</span>
+  <a href="#privacy">Privacy and terms</a>
+</footer>
+
+</body>
+</html>
