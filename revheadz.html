@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RevHeadz Remote - Remote Drive</title>
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="index.html#home"><span class="dot"></span>Remote Drive</a>
+  <nav class="links" aria-label="Main">
+    <a href="index.html#about">About Us</a>
+    <a href="index.html#what">What Is This</a>
+    <a href="index.html#news">News</a>
+  </nav>
+</header>
+
+<main class="wrap narrow">
+  <h1>RevHeadz Remote</h1>
+  <p>Control a real phone running the RevHeadz Engine Sounds app from your keyboard. You can start the engine, change gears, press the clutch and use the throttle.</p>
+
+  <div class="panel">
+    <div class="status-line"><span class="dot"></span><strong id="state">Checking...</strong></div>
+    <form id="f" novalidate>
+      <label>Access code<input id="code" type="password" autocomplete="off" required></label>
+      <p class="error" id="err" role="alert"></p>
+      <button class="btn primary" id="go" type="submit">Open remote</button>
+    </form>
+    <p class="note">Ask the owner for the access code. The remote opens in a new tab.</p>
+  </div>
+
+  <h2>Controls</h2>
+  <p>Use a laptop or desktop keyboard. Click the remote page once, then:</p>
+  <ul>
+    <li>Enter: start or stop the engine</li>
+    <li>W and S: gear up and gear down</li>
+    <li>Space: clutch</li>
+    <li>Arrow Up: throttle (hold it). Arrow Down: throttle down fast</li>
+  </ul>
+  <p class="note">Only one person should drive at a time. If the page does not open, the owner has switched the remote off.</p>
+</main>
+
+<footer class="foot wrap">
+  <span>&copy; 2026 Remote Drive</span>
+  <a href="index.html#privacy">Privacy and terms</a>
+</footer>
+
+<script>
+  var url = (window.REVHEADZ_URL || "").replace(/\/+$/, "");
+  var state = document.getElementById("state");
+  var dot = document.querySelector(".status-line .dot");
+  var go = document.getElementById("go");
+  var err = document.getElementById("err");
+
+  if (url) {
+    state.textContent = "Remote is switched on";
+  } else {
+    state.textContent = "Remote is switched off";
+    dot.classList.add("off");
+    go.disabled = true;
+  }
+
+  document.getElementById("f").addEventListener("submit", function(e) {
+    e.preventDefault();
+    var code = document.getElementById("code").value.trim();
+    if (!url) { err.textContent = "The remote is switched off right now."; return; }
+    if (!code) { err.textContent = "Type the access code first."; return; }
+    err.textContent = "";
+    window.open(url + "/?code=" + encodeURIComponent(code), "_blank", "noopener");
+  });
+</script>
+</body>
+</html>
