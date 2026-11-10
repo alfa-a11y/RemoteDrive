@@ -1,1 +1,1 @@
-window.REVHEADZ_URL = ""; 
+window.REVHEADZ_URL = "https://finishing-left-lightning-notices.trycloudflare.com";
